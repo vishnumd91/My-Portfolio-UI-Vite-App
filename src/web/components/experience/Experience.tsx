@@ -1,7 +1,7 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { useQuery } from "react-query";
-import { getExperienceData } from "../../../services";
-import { getDateinRequiredFormat } from "../../../utils";
+import { getExperienceDataFromSanity } from "../../../services";
+import { getDateInRequiredFormat } from "../../../utils";
 import { ExperienceType } from "../../types/experience.types";
 
 export const Experience = (): ReactElement => {
@@ -10,7 +10,7 @@ export const Experience = (): ReactElement => {
   const { data: experienceData, isError } = useQuery(
     "experience",
     async () => {
-      const response: ExperienceType[] = await getExperienceData();
+      const response: ExperienceType[] = await getExperienceDataFromSanity();
       return response ?? [];
     },
     {
@@ -32,9 +32,9 @@ export const Experience = (): ReactElement => {
               {experienceData &&
                 experienceData?.map((experienceInputs) => {
                   const {
-                    position,
+                    jobRole,
                     country,
-                    company,
+                    companyName,
                     state,
                     description,
                     startDate,
@@ -48,18 +48,18 @@ export const Experience = (): ReactElement => {
                       className="d-flex flex-column flex-md-row justify-content-between mb-5"
                     >
                       <div className="flex-grow-1">
-                        <h3 className="mb-0">{position}</h3>
+                        <h3 className="mb-0">{jobRole}</h3>
                         <div className="subheading mb-3">
-                          {`${company}, ${state}, ${country}`}
+                          {`${companyName}, ${state}, ${country}`}
                         </div>
                         <p>{description}</p>
                       </div>
                       <div className="flex-shrink-0">
                         <span className="text-primary">
-                          {`${getDateinRequiredFormat(startDate)} - ${
+                          {`${getDateInRequiredFormat(startDate)} - ${
                             isCurrent
                               ? "Present"
-                              : getDateinRequiredFormat(endDate)
+                              : getDateInRequiredFormat(endDate)
                           }`}
                         </span>
                       </div>

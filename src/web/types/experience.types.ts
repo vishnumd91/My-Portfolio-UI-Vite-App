@@ -1,7 +1,7 @@
 export type ExperienceType = {
-  position: string;
+  jobRole: string;
   country: string;
-  company: string;
+  companyName: string;
   state: string;
   description: string;
   startDate: string;

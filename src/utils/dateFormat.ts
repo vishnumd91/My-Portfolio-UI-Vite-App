@@ -1,9 +1,9 @@
 // This function will return Month and Year in a string format
-export const getDateinRequiredFormat = (date: string) => {
+export const getDateInRequiredFormat = (date: string) => {
   const dateObj = new Date(date);
-  const requuiredFormat = dateObj.toLocaleString("default", {
+  const requiredFormat = dateObj.toLocaleString("default", {
     month: "long",
     year: "numeric",
   });
-  return requuiredFormat;
+  return requiredFormat;
 };

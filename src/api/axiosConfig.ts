@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://node-api-my-portfolio.onrender.com/",
-  // timeout: 3000,
+  baseURL: `${import.meta.env.VITE_BASE_APP_URL}`,
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
