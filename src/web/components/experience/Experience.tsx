@@ -5,13 +5,13 @@ import { getDateinRequiredFormat } from "../../../utils";
 import { ExperienceType } from "../../types/experience.types";
 
 export const Experience = (): ReactElement => {
-  const [error, setError] = useState<unknown>();
+  const [, setError] = useState<unknown>();
 
-  const { data: experienceData } = useQuery(
+  const { data: experienceData, isError } = useQuery(
     "experience",
     async () => {
       const response: ExperienceType[] = await getExperienceData();
-      return response;
+      return response ?? [];
     },
     {
       onError: (err: unknown) => {
@@ -25,40 +25,49 @@ export const Experience = (): ReactElement => {
       <section className="resume-section" id="experience">
         <div className="resume-section-content">
           <h2 className="mb-5">Experience</h2>
-          {experienceData?.map((experienceInputs) => {
-            const {
-              position,
-              country,
-              company,
-              state,
-              description,
-              startDate,
-              endDate,
-              _id,
-              isCurrent,
-            } = experienceInputs;
-            return (
-              <div
-                key={_id}
-                className="d-flex flex-column flex-md-row justify-content-between mb-5"
-              >
-                <div className="flex-grow-1">
-                  <h3 className="mb-0">{position}</h3>
-                  <div className="subheading mb-3">
-                    {`${company}, ${state}, ${country}`}
-                  </div>
-                  <p>{description}</p>
-                </div>
-                <div className="flex-shrink-0">
-                  <span className="text-primary">
-                    {`${getDateinRequiredFormat(startDate)} - ${
-                      isCurrent ? "Present" : getDateinRequiredFormat(endDate)
-                    }`}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+          {isError ? (
+            <p className="text-center fs-4 m-auto">Something Went Wrong</p>
+          ) : (
+            <>
+              {experienceData &&
+                experienceData?.map((experienceInputs) => {
+                  const {
+                    position,
+                    country,
+                    company,
+                    state,
+                    description,
+                    startDate,
+                    endDate,
+                    _id,
+                    isCurrent,
+                  } = experienceInputs;
+                  return (
+                    <div
+                      key={_id}
+                      className="d-flex flex-column flex-md-row justify-content-between mb-5"
+                    >
+                      <div className="flex-grow-1">
+                        <h3 className="mb-0">{position}</h3>
+                        <div className="subheading mb-3">
+                          {`${company}, ${state}, ${country}`}
+                        </div>
+                        <p>{description}</p>
+                      </div>
+                      <div className="flex-shrink-0">
+                        <span className="text-primary">
+                          {`${getDateinRequiredFormat(startDate)} - ${
+                            isCurrent
+                              ? "Present"
+                              : getDateinRequiredFormat(endDate)
+                          }`}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+            </>
+          )}
         </div>
       </section>
     </div>
