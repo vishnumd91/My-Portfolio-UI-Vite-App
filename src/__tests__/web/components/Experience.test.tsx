@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "../../../utils";
@@ -14,8 +14,7 @@ const Mock = () => {
 
 describe("Experience Test Cases", () => {
   it("should render the Experience Component", async () => {
-    // TODO: Fix test case issue
-    // const val = render(<Mock />);
-    expect(true).toBeTruthy();
+    const val = render(<Mock />);
+    await waitFor(() => expect(val).toBeTruthy());
   });
 });
