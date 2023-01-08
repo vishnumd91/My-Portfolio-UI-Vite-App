@@ -1,16 +1,17 @@
 import React, { ReactElement, useState } from "react";
 import { useQuery } from "react-query";
-import { getExperienceDataFromSanity } from "../../../services";
+import { getDataFromSanity } from "../../../services";
 import { getDateInRequiredFormat } from "../../../utils";
 import { ExperienceType } from "../../types/experience.types";
 
 export const Experience = (): ReactElement => {
   const [, setError] = useState<unknown>();
+  const sanityQuery = `*%5B_type%20%3D%3D%20'experience'%5D%20%7B%0A%20%20companyName%2C%0A%20%20country%2C%0A%20%20state%2C%0A%20%20isCurrent%2C%0A%20%20startDate%2C%0A%20%20endDate%2C%0A%20%20jobRole%2C%0A%20%20%20%20description%2C%0A%20%20%20%20_id%0A%7D`;
 
   const { data: experienceData, isError } = useQuery(
     "experience",
     async () => {
-      const response: ExperienceType[] = await getExperienceDataFromSanity();
+      const response: ExperienceType[] = await getDataFromSanity(sanityQuery);
       return response ?? [];
     },
     {
