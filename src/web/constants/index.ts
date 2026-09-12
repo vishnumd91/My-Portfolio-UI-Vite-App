@@ -72,3 +72,5 @@ export const educationData: EducationData[] = [
     duration: "August 2015 - August 2019",
   },
 ];
+
+export const SANITY_QUERY = `*%5B_type%20%3D%3D%20%22experience%22%5D%0A%7C%20order(startDate%20desc)%20%7B%0A%20%20companyName%2C%0A%20%20country%2C%0A%20%20state%2C%0A%20%20isCurrent%2C%0A%20%20startDate%2C%0A%20%20endDate%2C%0A%20%20jobRole%2C%0A%20%20description%2C%0A%20%20_id%0A%7D`;
